@@ -1,13 +1,16 @@
 ﻿using AuthenticationAPI.Models;
+using AuthenticationAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AuthenticationAPI.UserData
 {
     public class SqlUserData : IUserData
     {
         private UsersContext _usersContext;
+
         public SqlUserData(UsersContext usersContext)
         {
             _usersContext = usersContext;
@@ -48,6 +51,7 @@ namespace AuthenticationAPI.UserData
 
                 _usersContext.Users.Update(existingUser);
                 _usersContext.SaveChanges();
+  
             }
             return user;
         }

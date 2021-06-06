@@ -1,12 +1,18 @@
 using AuthenticationAPI.Models;
+using AuthenticationAPI.Services;
 using AuthenticationAPI.UserData;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
 
 namespace AuthenticationAPI
 {
@@ -25,10 +31,35 @@ namespace AuthenticationAPI
 
             services.AddControllers();
 
+            var audienceConfig = Configuration.GetSection("Audience");
+
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+                ValidateIssuer = true,
+                ValidIssuer = audienceConfig["Iss"],
+                ValidateAudience = true,
+                ValidAudience = audienceConfig["Aud"],
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,
+                RequireExpirationTime = true,
+            };
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+         .AddJwtBearer("TestKey", x =>
+         {
+             x.RequireHttpsMetadata = false;
+             x.TokenValidationParameters = tokenValidationParameters;
+         });
+
             services.AddDbContextPool<UsersContext>(options => options.UseMySQL(
               Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserData, SqlUserData>();
+
+            services.AddTransient<IMessagePublisher, MessagePublisher>();
 
             services.AddSwaggerGen(c =>
             {
@@ -51,6 +82,8 @@ namespace AuthenticationAPI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

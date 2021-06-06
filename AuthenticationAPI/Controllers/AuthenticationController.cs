@@ -1,7 +1,10 @@
 ﻿using AuthenticationAPI.Models;
+using AuthenticationAPI.Services;
 using AuthenticationAPI.UserData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace AuthenticationAPI.Controllers
 {
@@ -11,9 +14,12 @@ namespace AuthenticationAPI.Controllers
     {
         private IUserData _userData;
 
-        public AuthenticationController(IUserData userData)
+        private IMessagePublisher _messagePublisher;
+
+        public AuthenticationController(IUserData userData, IMessagePublisher messagePublisher)
         {
             _userData = userData;
+            _messagePublisher = messagePublisher;
         }
 
         [HttpGet]
@@ -44,13 +50,17 @@ namespace AuthenticationAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = _userData.GetUserById(id);
 
             if (user != null)
             {
-                _userData.DeleteUser(user);
+                await _messagePublisher.Publish(new Models.User
+                {
+                    Id = id
+                }, "deleteuser");
+                _userData.DeleteUser(user);   
                 return Ok();
             }
             return NotFound($"User with id: {id} was not found");
@@ -68,11 +78,6 @@ namespace AuthenticationAPI.Controllers
                 return Ok();
             }
             return NotFound($"User with id: {id} was not found");
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }
