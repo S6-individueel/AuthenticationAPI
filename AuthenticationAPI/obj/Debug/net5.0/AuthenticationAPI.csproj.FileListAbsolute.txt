@@ -79,3 +79,4 @@ C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\bin\
 C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\bin\Debug\net5.0\System.Memory.Data.dll
 C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\obj\Debug\net5.0\AuthenticationAPI.csprojAssemblyReference.cache

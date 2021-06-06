@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sUNTC5xdtzN9iLu3RxnnmPg4z0vXlLtPjhH2OKqr0i3ZQ842P/CpLUgVXP65HaEUBPGi3GTfyeOeXIV/MUJyxw==",
+  "dgSpecHash": "JAwuKGndcj+b/3bxtBNiojMZzxlHOD4zodEPy5EQdWndMXl1D8U0HvUBHuWFkdw49W/2Q/J1Yenk3IedbM1W8A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Freaqke\\Desktop\\S6-individueel\\AuthenticationAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
   "expectedPackageFiles": [
@@ -48,6 +48,7 @@
     "C:\\Users\\Freaqke\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Freaqke\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\Freaqke\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Freaqke\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512",
     "C:\\Users\\Freaqke\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Freaqke\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Freaqke\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
