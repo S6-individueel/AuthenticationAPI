@@ -80,3 +80,4 @@ C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\obj\
 C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\obj\Release\net5.0\ref\AuthenticationAPI.dll
 C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\obj\Release\net5.0\AuthenticationAPI.pdb
 C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\obj\Release\net5.0\AuthenticationAPI.genruntimeconfig.cache
+C:\Users\Freaqke\Desktop\S6-individueel\AuthenticationAPI\AuthenticationAPI\bin\Release\net5.0\Pomelo.EntityFrameworkCore.MySql.dll

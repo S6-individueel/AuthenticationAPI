@@ -19,4 +19,4 @@ RUN dotnet publish "AuthenticationAPI.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AuthenticationAPI.dll"]
+ENTRYPOINT ["dotnet", "AuthenticationAPI.dll", "--environment=Development"]

@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
 
+
 namespace AuthenticationAPI
 {
     public class Startup
@@ -54,8 +55,38 @@ namespace AuthenticationAPI
              x.TokenValidationParameters = tokenValidationParameters;
          });
 
-            services.AddDbContextPool<UsersContext>(options => options.UseMySQL(
-              Configuration.GetConnectionString("DefaultConnection")));
+            var connection = Configuration["MYSQL_DBCONNECTION"] ?? Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContextPool<UsersContext>(options => options.UseMySQL(connection));
+
+            /*           services.AddDbContextPool<UsersContext>(options =>
+                       {
+                           string connectionString = Configuration.GetConnectionString("DefaultConnection");
+                           options.UseMySql(connectionString,
+                               ServerVersion.AutoDetect(connectionString),
+                               mySqlOptions =>
+                                   mySqlOptions.EnableRetryOnFailure(
+                                       maxRetryCount: 10,
+                                       maxRetryDelay: TimeSpan.FromSeconds(30),
+                                       errorNumbersToAdd: null));
+                       }
+                   );*/
+
+            /*  var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+              // Replace with your server version and type.
+              // Use 'MariaDbServerVersion' for MariaDB.
+              // Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
+              // For common usages, see pull request #1233.
+              var serverVersion = new MySqlServerVersion(new Version(5, 7));
+
+              // Replace 'YourDbContext' with the name of your own DbContext derived class.
+              services.AddDbContext<UsersContext>(
+                  dbContextOptions => dbContextOptions
+                      .UseMySql(connectionString, serverVersion)
+                      .EnableSensitiveDataLogging() // <-- These two calls are optional but help
+                      .EnableDetailedErrors()       // <-- with debugging (remove for production).
+              );*/
 
             services.AddScoped<IUserData, SqlUserData>();
 
@@ -68,7 +99,7 @@ namespace AuthenticationAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UsersContext context)
         {
             if (env.IsDevelopment())
             {
@@ -89,6 +120,10 @@ namespace AuthenticationAPI
             {
                 endpoints.MapControllers();
             });
+
+            context.Database.Migrate();
         }
     }
 }
+
+
