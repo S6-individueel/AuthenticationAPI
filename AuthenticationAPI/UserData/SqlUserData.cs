@@ -18,6 +18,8 @@ namespace AuthenticationAPI.UserData
 
         public User AddUser(User user)
         {
+/*            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(user.Password);
+            user.Password = System.Convert.ToBase64String(plainTextBytes);*/
             user.Id = Guid.NewGuid();
             _usersContext.Users.Add(user);
             _usersContext.SaveChanges();
